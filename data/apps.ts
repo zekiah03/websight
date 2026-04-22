@@ -11,6 +11,8 @@ export type App = {
   tags: string[];
   status: AppStatus;
   year: number;
+  accent: string;
+  accentName: string;
 };
 
 export const apps: App[] = [
@@ -20,12 +22,14 @@ export const apps: App[] = [
     title: "Morpho",
     subtitle: "万物の分類学",
     description:
-      "目の前のものを「何であるか」ではなく「どこに位置するか」で捉え直す。分類という古い営みを、AIで再起動する試み。",
+      "目の前のものを「何であるか」ではなく「どこに位置するか」で捉え直す。分類という古い営みを、AIで再起動する。",
     question: "分類された瞬間、それは何を失うのか。",
     url: "https://comparedna.vercel.app/",
     tags: ["taxonomy", "ai", "classify"],
     status: "wip",
     year: 2025,
+    accent: "#9efcff",
+    accentName: "azure",
   },
   {
     id: "profile",
@@ -33,12 +37,14 @@ export const apps: App[] = [
     title: "存在をプロファイリングする",
     subtitle: "12軸 × 60環境DNA",
     description:
-      "対象を12の軸と60のDNAパラメータで多面的に解析するAI分類学アプリ。観察対象の「らしさ」を数値と座標として記述する。",
+      "対象を12の軸と60のDNAで多面解析するAI分類学。観察対象の「らしさ」を数値と座標として記述する。",
     question: "プロファイルされた存在は、まだ未知でいられるか。",
     url: "https://v0-life-tracker-app-zeta.vercel.app/",
     tags: ["profile", "ai", "library"],
     status: "live",
     year: 2025,
+    accent: "#a8ffa1",
+    accentName: "spring",
   },
   {
     id: "prism",
@@ -46,12 +52,14 @@ export const apps: App[] = [
     title: "Prism",
     subtitle: "六つの角度から見る自分",
     description:
-      "人との関わり方、努力の仕方、学び方など6つの観点から自分を診断する。最後にAIが、6つの像を一枚のレポートに結び直す。",
+      "人との関わり方、努力、学び方など6つの観点で自分を診断し、AIが6つの像を一枚のレポートに結び直す。",
     question: "六面から見られた自己は、一つの自己か、六つの像か。",
     url: "https://micron-sigma.vercel.app/",
     tags: ["self", "diagnose", "report"],
     status: "live",
     year: 2025,
+    accent: "#ff9efc",
+    accentName: "magenta",
   },
   {
     id: "prism-mirror",
@@ -65,6 +73,8 @@ export const apps: App[] = [
     tags: ["self", "mirror", "alt"],
     status: "live",
     year: 2025,
+    accent: "#b59eff",
+    accentName: "violet",
   },
   {
     id: "hanten",
@@ -72,12 +82,14 @@ export const apps: App[] = [
     title: "反転",
     subtitle: "自分の中の別の位置を見にいく",
     description:
-      "好きなこと・つらいことを書き出し、4ステップでその裏側にある別の側面を引き出す。一面的な感情を、もう一度ひっくり返して見るための道具。",
+      "好きなこと・つらいことを書き出し、4ステップでその裏側にある別の側面を引き出す。一面的な感情を、もう一度ひっくり返す。",
     question: "好きの反対は嫌いか、それとも別の好きか。",
     url: "https://problemmach.vercel.app/",
     tags: ["reframe", "emotion", "4-step"],
     status: "live",
     year: 2025,
+    accent: "#ffb09e",
+    accentName: "ember",
   },
   {
     id: "problemmach",
@@ -91,6 +103,8 @@ export const apps: App[] = [
     tags: ["dialogue", "ai", "mental"],
     status: "live",
     year: 2025,
+    accent: "#fde89e",
+    accentName: "amber",
   },
   {
     id: "watashi",
@@ -98,12 +112,14 @@ export const apps: App[] = [
     title: "わたしの定義",
     subtitle: "99の思考実験",
     description:
-      "記憶が、身体が、意識が変わっても、あなたはあなたでいられるか。同一性をめぐる思考実験を「抄(20)・選(40)・全(100)」の三層で読む。",
+      "記憶が、身体が、意識が変わっても、あなたはあなたでいられるか。同一性をめぐる思考実験を「抄・選・全」の三層で読む。",
     question: "わたしを「わたし」たらしめるものは、どこにあるか。",
     url: "https://wrong-seven.vercel.app/",
     tags: ["identity", "experiment", "self"],
     status: "live",
     year: 2025,
+    accent: "#ff9eb6",
+    accentName: "rose",
   },
 ];
 
