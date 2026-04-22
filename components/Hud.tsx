@@ -1,102 +1,46 @@
 "use client";
 
-import { useState } from "react";
-import { motion, useMotionValueEvent, useSpring } from "motion/react";
-import { useStage } from "@/lib/stage";
-import { apps } from "@/data/apps";
-import Float from "@/components/Float";
+import { motion, useScroll, useSpring, useTransform } from "motion/react";
 
 export default function Hud() {
-  const { progress, total } = useStage();
-  const [scene, setScene] = useState(0);
-
-  useMotionValueEvent(progress, "change", (v) => {
-    const i = Math.round(v * (total - 1));
-    setScene(i);
-  });
-
-  const labels = [
-    "序",
-    "ことば",
-    ...apps.map((a) => a.subtitle),
-    "終",
-  ];
-
-  const widthMV = useSpring(progress, { stiffness: 110, damping: 28 });
+  const { scrollYProgress } = useScroll();
+  const smooth = useSpring(scrollYProgress, { stiffness: 100, damping: 24 });
+  const depth = useTransform(smooth, (v) => `${Math.round(v * 1000)}m`);
+  const angle = useTransform(smooth, [0, 1], [0, 360]);
 
   return (
     <>
       <motion.div
         aria-hidden
-        style={{ scaleX: widthMV, transformOrigin: "0% 50%" }}
-        className="fixed inset-x-0 top-0 z-[70] h-px bg-gradient-to-r from-transparent via-glow/70 to-transparent"
+        style={{ scaleX: smooth, transformOrigin: "0% 50%" }}
+        className="fixed inset-x-0 top-0 z-[70] h-px bg-gradient-to-r from-transparent via-tide/60 to-transparent"
       />
 
-      <Float
-        as="span"
-        range={4}
-        duration={9}
-        className="fixed bottom-6 right-6 z-[58] hidden items-baseline gap-3 font-serif text-bone-300 sm:flex"
-      >
-        <span className="text-base italic tabular-nums text-bone-100/90">
-          {String(scene + 1).padStart(2, "0")}
-        </span>
-        <span className="h-px w-6 bg-bone-400/40" />
-        <span className="text-xs italic tabular-nums text-bone-400/80">
-          / {String(total).padStart(2, "0")}
-        </span>
-        <span className="ml-2 text-sm italic text-bone-200/90">{labels[scene]}</span>
-      </Float>
+      <header className="pointer-events-none fixed inset-x-0 top-6 z-[58] flex items-baseline justify-between px-6 font-serif italic text-foam-300/85 sm:top-8 sm:px-10">
+        <motion.span
+          className="text-base"
+          animate={{ opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          websight
+        </motion.span>
+        <span className="hidden text-sm sm:inline">渦の中の七つの問い</span>
+      </header>
 
-      <nav
-        aria-label="scenes"
-        className="fixed right-4 top-1/2 z-[58] hidden -translate-y-1/2 flex-col items-end gap-4 sm:flex"
-      >
-        {labels.map((label, i) => (
-          <Drop key={i} index={i} active={scene === i} label={label} total={total} />
-        ))}
-      </nav>
+      <footer className="pointer-events-none fixed inset-x-0 bottom-6 z-[58] flex items-end justify-between px-6 font-serif italic text-foam-300/85 sm:bottom-8 sm:px-10">
+        <span className="text-sm">click ripples · move stirs · scroll descends</span>
+        <span className="flex items-baseline gap-3 text-sm tabular-nums">
+          <span className="text-foam-400">深度</span>
+          <motion.span className="text-base text-foam-100">{depth}</motion.span>
+          <motion.span
+            className="text-foam-400"
+            style={{ rotate: angle, display: "inline-block" }}
+            aria-hidden
+          >
+            ↓
+          </motion.span>
+        </span>
+      </footer>
     </>
-  );
-}
-
-function Drop({
-  index,
-  active,
-  label,
-  total,
-}: {
-  index: number;
-  active: boolean;
-  label: string;
-  total: number;
-}) {
-  const onClick = () => {
-    if (typeof window === "undefined") return;
-    const top = (index / Math.max(1, total - 1)) * (window.innerHeight * (total - 1));
-    window.scrollTo({ top, behavior: "smooth" });
-  };
-  return (
-    <button
-      type="button"
-      data-cursor="link"
-      onClick={onClick}
-      className="group relative flex items-center gap-3 py-1"
-      aria-label={`scene ${index + 1}: ${label}`}
-    >
-      <span className="font-serif text-sm italic text-bone-300/90 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        {label}
-      </span>
-      <motion.span
-        className="block rounded-full"
-        animate={{
-          width: active ? 18 : 6,
-          height: active ? 6 : 6,
-          backgroundColor: active ? "rgb(174 223 228)" : "rgb(196 208 209 / 0.3)",
-          boxShadow: active ? "0 0 14px rgba(174,223,228,0.6)" : "none",
-        }}
-        transition={{ type: "spring", stiffness: 200, damping: 22 }}
-      />
-    </button>
   );
 }

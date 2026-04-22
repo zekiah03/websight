@@ -8,22 +8,30 @@
 
 html,
 body {
-  background: #050507;
+  background: #02060a;
+  overflow-x: hidden;
+}
+
+body {
+  cursor: none;
+}
+
+@media (max-width: 767px) {
+  body {
+    cursor: auto;
+  }
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #050507;
+  background: #02060a;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1a1a22;
+  background: #0e2638;
   border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #26262f;
 }
 
 @layer utilities {

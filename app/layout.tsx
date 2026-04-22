@@ -17,9 +17,9 @@ const serif = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "websight — 七つの小さな器",
+  title: "websight — 渦の中の七つの問い",
   description:
-    "問いをすくい、しばらく置いておくための、七つの小さなアプリ。",
+    "意識という深海。その渦に身を委ねながら、七つの小さな問いを覗く。",
 };
 
 export default function RootLayout({
@@ -29,7 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja" className={`${sans.variable} ${serif.variable}`}>
-      <body className="bg-ink-950 text-bone-200 font-sans antialiased selection:bg-glow/30 selection:text-bone-100">
+      <body className="bg-abyss-950 text-foam-200 font-sans antialiased selection:bg-tide/30 selection:text-foam-100">
         {children}
       </body>
     </html>

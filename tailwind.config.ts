@@ -1,29 +1,32 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}"],
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./lib/**/*.{ts,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
-        ink: {
-          950: "#07141a",
-          900: "#0d2128",
-          800: "#173038",
-          700: "#22414a",
-          600: "#2f535c",
-          500: "#3f6770",
+        abyss: {
+          950: "#02060a",
+          900: "#04101a",
+          800: "#081a28",
+          700: "#0e2638",
+          600: "#163448",
+          500: "#1f475d",
         },
-        bone: {
-          100: "#f4f2ea",
-          200: "#e7e9e0",
-          300: "#c4d0d1",
-          400: "#7d979d",
+        foam: {
+          100: "#eef3f4",
+          200: "#dbe5e7",
+          300: "#a8bcc1",
+          400: "#6c858d",
+          500: "#496268",
         },
-        glow: {
-          DEFAULT: "#aedfe4",
-          dim: "#5e8d93",
-        },
-        ember: "#d8a18a",
+        tide: "#7fb7c2",
+        coral: "#c8978a",
+        kelp: "#7c9a8a",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui"],
@@ -31,9 +34,7 @@ const config: Config = {
       },
       backgroundImage: {
         noise:
-          "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
-        horizon:
-          "linear-gradient(to bottom, transparent 0%, rgba(174,223,228,0.06) 50%, transparent 100%)",
+          "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
       },
     },
   },
