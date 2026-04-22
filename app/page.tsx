@@ -1,6 +1,11 @@
 import Hero from "@/components/Hero";
 import AppCard, { PlaceholderCard } from "@/components/AppCard";
 import Footer from "@/components/Footer";
+import AnimatedBackground from "@/components/AnimatedBackground";
+import Cursor from "@/components/Cursor";
+import QuestionTicker from "@/components/QuestionTicker";
+import SectionHeading from "@/components/SectionHeading";
+import Colophon from "@/components/Colophon";
 import { apps, placeholderSlots } from "@/data/apps";
 
 export default function Page() {
@@ -10,43 +15,31 @@ export default function Page() {
   );
 
   return (
-    <main>
-      <Hero />
+    <>
+      <AnimatedBackground />
+      <Cursor />
+      <main className="relative">
+        <Hero />
+        <QuestionTicker />
 
-      <section className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-        <header className="mb-12 flex items-end justify-between gap-4 border-b border-ink-700/60 pb-6">
-          <h2 className="font-mono text-[11px] uppercase tracking-[0.3em] text-bone-400">
-            // index of works
-          </h2>
-          <span className="font-mono text-[11px] uppercase tracking-widest text-bone-400/70">
-            {String(apps.length).padStart(2, "0")} entries
-          </span>
-        </header>
+        <section className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+          <SectionHeading
+            label="// index of works"
+            meta={`${String(apps.length).padStart(2, "0")} entries`}
+          />
+          <div className="grid gap-px bg-ink-700/30 sm:grid-cols-2 lg:grid-cols-3">
+            {apps.map((app, i) => (
+              <AppCard key={app.id} app={app} i={i} />
+            ))}
+            {slots.map((idx, i) => (
+              <PlaceholderCard key={idx} index={idx} i={apps.length + i} />
+            ))}
+          </div>
+        </section>
 
-        <div className="grid gap-px bg-ink-700/40 sm:grid-cols-2 lg:grid-cols-3">
-          {apps.map((app) => (
-            <AppCard key={app.id} app={app} />
-          ))}
-          {slots.map((idx) => (
-            <PlaceholderCard key={idx} index={idx} />
-          ))}
-        </div>
-      </section>
-
-      <section className="border-t border-ink-700/60 bg-ink-900/40">
-        <div className="mx-auto max-w-3xl px-6 py-24 text-center">
-          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-bone-400">
-            // colophon
-          </p>
-          <p className="mt-6 font-serif text-2xl font-light leading-relaxed text-bone-200 sm:text-3xl">
-            「アプリ」とは、答えを早く返す機械ではなく、
-            <br className="hidden sm:block" />
-            問いを長く保つための器である。
-          </p>
-        </div>
-      </section>
-
-      <Footer />
-    </main>
+        <Colophon />
+        <Footer />
+      </main>
+    </>
   );
 }

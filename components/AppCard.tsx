@@ -1,3 +1,13 @@
+"use client";
+
+import { useRef } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import type { App } from "@/data/apps";
 
 const ArrowOut = () => (
@@ -14,7 +24,30 @@ const ArrowOut = () => (
   </svg>
 );
 
-export default function AppCard({ app }: { app: App }) {
+export default function AppCard({ app, i = 0 }: { app: App; i?: number }) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const mx = useMotionValue(0.5);
+  const my = useMotionValue(0.5);
+  const smx = useSpring(mx, { stiffness: 120, damping: 16 });
+  const smy = useSpring(my, { stiffness: 120, damping: 16 });
+
+  const rotateY = useTransform(smx, [0, 1], [6, -6]);
+  const rotateX = useTransform(smy, [0, 1], [-5, 5]);
+  const spotX = useTransform(smx, (v) => `${v * 100}%`);
+  const spotY = useTransform(smy, (v) => `${v * 100}%`);
+  const spotlight = useMotionTemplate`radial-gradient(260px circle at ${spotX} ${spotY}, rgba(158,252,255,0.18), transparent 65%)`;
+
+  const onMove = (e: React.PointerEvent<HTMLAnchorElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set((e.clientX - r.left) / r.width);
+    my.set((e.clientY - r.top) / r.height);
+  };
+
+  const onLeave = () => {
+    mx.set(0.5);
+    my.set(0.5);
+  };
+
   const host = (() => {
     try {
       return new URL(app.url).host.replace(/^www\./, "");
@@ -24,52 +57,76 @@ export default function AppCard({ app }: { app: App }) {
   })();
 
   return (
-    <a
+    <motion.a
+      ref={ref}
       href={app.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex flex-col gap-6 overflow-hidden border border-ink-700/70 bg-ink-900/60 p-6 transition-colors duration-300 hover:border-glow/40 hover:bg-ink-800/80 sm:p-8"
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, delay: (i % 6) * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      style={{ rotateX, rotateY, transformPerspective: 1000 }}
+      whileHover={{ scale: 1.01 }}
+      className="group relative flex flex-col gap-6 overflow-hidden border border-ink-700/70 bg-ink-900/70 p-6 backdrop-blur-sm transition-colors duration-500 hover:border-glow/50 sm:p-8"
     >
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{ background: spotlight }}
+      />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 bg-grid bg-[size:32px_32px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
       />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-glow/10 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
-      />
 
-      <header className="flex items-start justify-between gap-4">
+      <header className="relative flex items-start justify-between gap-4">
         <div className="flex items-baseline gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-bone-400">
-          <span className="text-glow">{app.index}</span>
+          <motion.span
+            className="text-glow"
+            animate={{ opacity: [0.6, 1, 0.6] }}
+            transition={{ duration: 3, repeat: Infinity, delay: i * 0.2 }}
+          >
+            {app.index}
+          </motion.span>
           <span className="h-px w-6 bg-ink-600" />
           <span>{app.subtitle}</span>
         </div>
         <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-bone-400/80">
-          <span className="size-1.5 rounded-full bg-glow shadow-[0_0_8px_rgba(158,252,255,0.7)]" />
+          <span
+            className={
+              app.status === "live"
+                ? "size-1.5 rounded-full bg-glow shadow-[0_0_8px_rgba(158,252,255,0.7)]"
+                : app.status === "wip"
+                  ? "size-1.5 rounded-full bg-ember shadow-[0_0_8px_rgba(255,107,61,0.7)]"
+                  : "size-1.5 rounded-full bg-bone-400"
+            }
+          />
           {app.status}
         </span>
       </header>
 
-      <div className="space-y-3">
-        <h2 className="font-serif text-3xl font-light tracking-tight text-bone-100 sm:text-4xl">
+      <div className="relative space-y-3">
+        <h2 className="font-serif text-3xl font-light tracking-tight text-bone-100 transition-colors duration-300 group-hover:text-glow sm:text-4xl">
           {app.title}
         </h2>
-        <p className="text-sm leading-relaxed text-bone-300 text-pretty sm:text-[15px]">
+        <p className="text-pretty text-sm leading-relaxed text-bone-300 sm:text-[15px]">
           {app.description}
         </p>
       </div>
 
-      <blockquote className="border-l border-glow/40 pl-4 font-serif text-base italic text-bone-200/90">
+      <blockquote className="relative border-l border-glow/40 pl-4 font-serif text-base italic text-bone-200/90">
         “{app.question}”
       </blockquote>
 
-      <footer className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-4">
+      <footer className="relative mt-auto flex flex-wrap items-center justify-between gap-3 pt-4">
         <ul className="flex flex-wrap gap-2">
           {app.tags.map((t) => (
             <li
               key={t}
-              className="rounded-full border border-ink-600/80 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-widest text-bone-400"
+              className="rounded-full border border-ink-600/80 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-widest text-bone-400 transition-colors group-hover:border-glow/30 group-hover:text-bone-200"
             >
               {t}
             </li>
@@ -80,26 +137,36 @@ export default function AppCard({ app }: { app: App }) {
           <ArrowOut />
         </span>
       </footer>
-    </a>
+    </motion.a>
   );
 }
 
-export function PlaceholderCard({ index }: { index: string }) {
+export function PlaceholderCard({ index, i = 0 }: { index: string; i?: number }) {
   return (
-    <div className="relative flex min-h-[320px] flex-col justify-between overflow-hidden border border-dashed border-ink-600/60 bg-ink-900/30 p-6 sm:p-8">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, delay: (i % 6) * 0.06 }}
+      className="relative flex min-h-[320px] flex-col justify-between overflow-hidden border border-dashed border-ink-600/60 bg-ink-900/30 p-6 backdrop-blur-sm sm:p-8"
+    >
       <div className="flex items-baseline gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-bone-400/60">
         <span>{index}</span>
         <span className="h-px w-6 bg-ink-600" />
         <span>untitled</span>
       </div>
       <div className="space-y-2">
-        <p className="font-serif text-2xl font-light text-bone-300/60">
+        <motion.p
+          className="font-serif text-2xl font-light text-bone-300/60"
+          animate={{ opacity: [0.4, 0.8, 0.4] }}
+          transition={{ duration: 3, repeat: Infinity }}
+        >
           coming soon
-        </p>
+        </motion.p>
         <p className="font-mono text-[11px] uppercase tracking-widest text-bone-400/50">
           // 次の問いを実装中
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }
