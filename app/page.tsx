@@ -24,10 +24,18 @@ export default function Page() {
 
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[40vh]"
+          className="pointer-events-none absolute inset-x-0 top-0 h-[20vh]"
           style={{
             background:
-              "linear-gradient(180deg, transparent 0%, rgba(5,7,10,0.5) 60%, rgba(5,7,10,0.9) 100%)",
+              "linear-gradient(180deg, rgba(3,5,10,0.9) 0%, rgba(5,7,10,0.4) 60%, transparent 100%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[25vh]"
+          style={{
+            background:
+              "linear-gradient(180deg, transparent 0%, rgba(5,7,10,0.5) 60%, rgba(5,7,10,0.95) 100%)",
           }}
         />
       </main>
