@@ -6,6 +6,8 @@ import Cursor from "@/components/Cursor";
 import QuestionTicker from "@/components/QuestionTicker";
 import SectionHeading from "@/components/SectionHeading";
 import Colophon from "@/components/Colophon";
+import ScrollProgress from "@/components/ScrollProgress";
+import WaveDivider from "@/components/WaveDivider";
 import { apps, placeholderSlots } from "@/data/apps";
 
 export default function Page() {
@@ -18,6 +20,7 @@ export default function Page() {
     <>
       <AnimatedBackground />
       <Cursor />
+      <ScrollProgress />
       <main className="relative">
         <Hero />
         <QuestionTicker />
@@ -37,6 +40,7 @@ export default function Page() {
           </div>
         </section>
 
+        <WaveDivider />
         <Colophon />
         <Footer />
       </main>

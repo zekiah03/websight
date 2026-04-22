@@ -28,14 +28,14 @@ export default function AppCard({ app, i = 0 }: { app: App; i?: number }) {
   const ref = useRef<HTMLAnchorElement>(null);
   const mx = useMotionValue(0.5);
   const my = useMotionValue(0.5);
-  const smx = useSpring(mx, { stiffness: 120, damping: 16 });
-  const smy = useSpring(my, { stiffness: 120, damping: 16 });
+  const smx = useSpring(mx, { stiffness: 140, damping: 18 });
+  const smy = useSpring(my, { stiffness: 140, damping: 18 });
 
-  const rotateY = useTransform(smx, [0, 1], [6, -6]);
-  const rotateX = useTransform(smy, [0, 1], [-5, 5]);
+  const rotateY = useTransform(smx, [0, 1], [7, -7]);
+  const rotateX = useTransform(smy, [0, 1], [-6, 6]);
   const spotX = useTransform(smx, (v) => `${v * 100}%`);
   const spotY = useTransform(smy, (v) => `${v * 100}%`);
-  const spotlight = useMotionTemplate`radial-gradient(260px circle at ${spotX} ${spotY}, rgba(158,252,255,0.18), transparent 65%)`;
+  const spotlight = useMotionTemplate`radial-gradient(280px circle at ${spotX} ${spotY}, rgba(158,252,255,0.22), transparent 60%)`;
 
   const onMove = (e: React.PointerEvent<HTMLAnchorElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
@@ -56,20 +56,32 @@ export default function AppCard({ app, i = 0 }: { app: App; i?: number }) {
     }
   })();
 
+  const statusPip =
+    app.status === "live"
+      ? "bg-glow shadow-[0_0_8px_rgba(158,252,255,0.7)]"
+      : app.status === "wip"
+        ? "bg-ember shadow-[0_0_8px_rgba(255,107,61,0.7)]"
+        : "bg-bone-400";
+
   return (
     <motion.a
       ref={ref}
       href={app.url}
       target="_blank"
       rel="noopener noreferrer"
+      data-cursor="card"
       onPointerMove={onMove}
       onPointerLeave={onLeave}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, delay: (i % 6) * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      style={{ rotateX, rotateY, transformPerspective: 1000 }}
-      whileHover={{ scale: 1.01 }}
+      transition={{
+        duration: 0.8,
+        delay: (i % 6) * 0.07,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      style={{ rotateX, rotateY, transformPerspective: 1200 }}
+      whileHover={{ scale: 1.015 }}
       className="group relative flex flex-col gap-6 overflow-hidden border border-ink-700/70 bg-ink-900/70 p-6 backdrop-blur-sm transition-colors duration-500 hover:border-glow/50 sm:p-8"
     >
       <motion.div
@@ -80,6 +92,14 @@ export default function AppCard({ app, i = 0 }: { app: App; i?: number }) {
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 bg-grid bg-[size:32px_32px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -top-px h-px origin-left bg-gradient-to-r from-transparent via-glow/70 to-transparent"
+        initial={{ scaleX: 0, opacity: 0 }}
+        whileInView={{ scaleX: 1, opacity: 1 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 1, delay: (i % 6) * 0.07 + 0.2 }}
       />
 
       <header className="relative flex items-start justify-between gap-4">
@@ -95,14 +115,10 @@ export default function AppCard({ app, i = 0 }: { app: App; i?: number }) {
           <span>{app.subtitle}</span>
         </div>
         <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-bone-400/80">
-          <span
-            className={
-              app.status === "live"
-                ? "size-1.5 rounded-full bg-glow shadow-[0_0_8px_rgba(158,252,255,0.7)]"
-                : app.status === "wip"
-                  ? "size-1.5 rounded-full bg-ember shadow-[0_0_8px_rgba(255,107,61,0.7)]"
-                  : "size-1.5 rounded-full bg-bone-400"
-            }
+          <motion.span
+            className={`size-1.5 rounded-full ${statusPip}`}
+            animate={{ opacity: [1, 0.4, 1] }}
+            transition={{ duration: 2.4, repeat: Infinity, delay: i * 0.15 }}
           />
           {app.status}
         </span>
@@ -123,13 +139,17 @@ export default function AppCard({ app, i = 0 }: { app: App; i?: number }) {
 
       <footer className="relative mt-auto flex flex-wrap items-center justify-between gap-3 pt-4">
         <ul className="flex flex-wrap gap-2">
-          {app.tags.map((t) => (
-            <li
+          {app.tags.map((t, ti) => (
+            <motion.li
               key={t}
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5, delay: 0.3 + ti * 0.06 }}
               className="rounded-full border border-ink-600/80 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-widest text-bone-400 transition-colors group-hover:border-glow/30 group-hover:text-bone-200"
             >
               {t}
-            </li>
+            </motion.li>
           ))}
         </ul>
         <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-bone-300 transition-colors group-hover:text-glow">
@@ -144,10 +164,10 @@ export default function AppCard({ app, i = 0 }: { app: App; i?: number }) {
 export function PlaceholderCard({ index, i = 0 }: { index: string; i?: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, delay: (i % 6) * 0.06 }}
+      transition={{ duration: 0.8, delay: (i % 6) * 0.07 }}
       className="relative flex min-h-[320px] flex-col justify-between overflow-hidden border border-dashed border-ink-600/60 bg-ink-900/30 p-6 backdrop-blur-sm sm:p-8"
     >
       <div className="flex items-baseline gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-bone-400/60">
