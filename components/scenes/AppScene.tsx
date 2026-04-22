@@ -101,7 +101,7 @@ export default function AppScene({ app, slot }: { app: App; slot: number }) {
           opacity: indexOpacity,
           color: app.accent,
         }}
-        className="pointer-events-none absolute right-[-2vw] top-[10vh] select-none font-serif text-[28vw] font-light leading-none tracking-tighter sm:right-[5vw] sm:text-[22vw]"
+        className="pointer-events-none absolute right-[-2vw] top-[10vh] select-none font-serif text-[28vw] font-light italic leading-none tracking-tighter sm:right-[5vw] sm:text-[22vw]"
       >
         {app.index}
       </motion.span>
@@ -111,10 +111,10 @@ export default function AppScene({ app, slot }: { app: App; slot: number }) {
           range={5}
           duration={9}
           as="span"
-          className="flex items-baseline gap-3 font-mono text-[11px] uppercase tracking-[0.3em] text-bone-400"
+          className="flex items-baseline gap-3 font-serif text-base italic text-bone-300"
         >
           <span style={{ color: app.accent }}>{app.index}</span>
-          <span className="h-px w-6 bg-bone-400/50" />
+          <span className="h-px w-6 bg-bone-400/40" />
           <span>{app.subtitle}</span>
         </Float>
         <Float
@@ -122,16 +122,17 @@ export default function AppScene({ app, slot }: { app: App; slot: number }) {
           duration={10}
           delay={0.3}
           as="span"
-          className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-bone-400"
+          className="flex items-center gap-2 font-serif text-sm italic text-bone-300"
         >
           <span
             className="size-1.5 rounded-full"
             style={{
               background: app.accent,
-              boxShadow: `0 0 10px ${app.accent}cc`,
+              boxShadow: `0 0 12px ${app.accent}cc`,
             }}
           />
-          {app.status} · {app.accentName}
+          {app.status === "live" ? "今、流れている" : app.status === "wip" ? "整えている最中" : "しまわれた"}
+          <span className="text-bone-400/70">— {app.accentName}</span>
         </Float>
       </header>
 
@@ -153,7 +154,7 @@ export default function AppScene({ app, slot }: { app: App; slot: number }) {
         <Float range={6} duration={8} delay={0.4}>
           <blockquote className="max-w-3xl font-serif text-2xl italic leading-snug text-bone-100/95 sm:text-4xl">
             <KineticText
-              text={`“${app.question}”`}
+              text={`「${app.question}」`}
               progress={progress}
               from={subFrom}
               start={-0.4}
@@ -168,7 +169,7 @@ export default function AppScene({ app, slot }: { app: App; slot: number }) {
         <Float range={5} duration={8} delay={0.2}>
           <motion.p
             style={{ opacity: descOpacity, y: descY, scale: descScale }}
-            className="max-w-md text-pretty text-sm leading-relaxed text-bone-300 sm:text-base"
+            className="max-w-md text-pretty font-serif text-base leading-relaxed text-bone-200 sm:text-lg"
           >
             {app.description}
           </motion.p>
@@ -183,8 +184,11 @@ export default function AppScene({ app, slot }: { app: App; slot: number }) {
               <Float key={t} range={4} duration={6 + ti * 0.4} delay={ti * 0.1}>
                 <li
                   data-cursor="link"
-                  className="rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-bone-300"
-                  style={{ borderColor: `${app.accent}55` }}
+                  className="rounded-full border px-3 py-1 font-serif text-xs italic text-bone-200/90"
+                  style={{
+                    borderColor: `${app.accent}55`,
+                    background: `${app.accent}10`,
+                  }}
                 >
                   {t}
                 </li>
@@ -199,21 +203,21 @@ export default function AppScene({ app, slot }: { app: App; slot: number }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor="card"
-                className="group relative flex items-center gap-3 overflow-hidden border px-6 py-3 font-mono text-[11px] uppercase tracking-[0.3em] transition-colors"
-                style={{ borderColor: app.accent, color: app.accent }}
+                className="group relative flex items-center gap-3 overflow-hidden rounded-full border px-6 py-3 font-serif text-base italic transition-colors"
+                style={{ borderColor: `${app.accent}80`, color: app.accent }}
               >
                 <span
                   aria-hidden
-                  className="absolute inset-0 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
-                  style={{ background: `${app.accent}1a` }}
+                  className="absolute inset-0 origin-center scale-0 rounded-full transition-transform duration-500 group-hover:scale-100"
+                  style={{ background: `${app.accent}1f` }}
                 />
-                <span className="relative">visit</span>
+                <span className="relative">この器を覗く</span>
                 <span
                   aria-hidden
                   className="relative h-px w-8"
                   style={{ background: app.accent }}
                 />
-                <span className="relative">
+                <span className="relative text-sm text-bone-300">
                   {new URL(app.url).host.replace(/^www\./, "")}
                 </span>
               </a>
@@ -224,10 +228,10 @@ export default function AppScene({ app, slot }: { app: App; slot: number }) {
         <motion.div
           aria-hidden
           style={{ y: subRailY, opacity: subRailOpacity }}
-          className="absolute bottom-0 left-0 hidden font-mono text-[10px] uppercase tracking-[0.3em] text-bone-400 sm:block"
+          className="absolute bottom-0 left-0 hidden font-serif text-sm italic text-bone-400 sm:block"
         >
           <Float range={4} duration={9} as="span">
-            ⌖ {app.year} — entry {app.index} of 07
+            {app.year} ・ 七つのうちの {app.index}
           </Float>
         </motion.div>
       </footer>
@@ -245,8 +249,8 @@ function Magnetic({
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 220, damping: 18 });
-  const sy = useSpring(y, { stiffness: 220, damping: 18 });
+  const sx = useSpring(x, { stiffness: 200, damping: 18 });
+  const sy = useSpring(y, { stiffness: 200, damping: 18 });
 
   useEffect(() => {
     const el = ref.current;
@@ -263,7 +267,7 @@ function Magnetic({
         y.set(0);
         return;
       }
-      const k = 0.32;
+      const k = 0.28;
       x.set(dx * k);
       y.set(dy * k);
     };
@@ -282,7 +286,7 @@ function Magnetic({
   return (
     <motion.div
       ref={ref}
-      style={{ x: sx, y: sy, filter: `drop-shadow(0 0 22px ${accent}40)` }}
+      style={{ x: sx, y: sy, filter: `drop-shadow(0 0 26px ${accent}55)` }}
     >
       {children}
     </motion.div>

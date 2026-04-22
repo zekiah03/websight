@@ -16,9 +16,9 @@ export default function Outro() {
         range={5}
         duration={11}
         as="span"
-        className="absolute left-6 top-6 font-mono text-[11px] uppercase tracking-[0.3em] text-bone-400 sm:left-10 sm:top-10"
+        className="absolute left-6 top-6 font-serif text-sm italic text-bone-300/90 sm:left-10 sm:top-10"
       >
-        // end of index — for now
+        ここまで、ひとまず
       </Float>
 
       <div className="relative w-full max-w-5xl text-center">
@@ -52,9 +52,9 @@ export default function Outro() {
         <Float range={4} duration={8} delay={0.6}>
           <motion.p
             style={{ opacity: subOpacity, y: subY }}
-            className="mx-auto mt-12 max-w-md text-pretty font-mono text-[11px] uppercase leading-relaxed tracking-[0.3em] text-bone-400"
+            className="mx-auto mt-12 max-w-md text-pretty font-serif text-base italic leading-relaxed text-bone-300"
           >
-            websight · {new Date().getUTCFullYear()} · built quietly
+            websight ・ {new Date().getUTCFullYear()} ・ 静かに作っています
           </motion.p>
         </Float>
       </div>

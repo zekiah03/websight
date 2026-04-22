@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Inter, Cormorant_Garamond } from "next/font/google";
+import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
 const sans = Inter({
@@ -8,23 +8,18 @@ const sans = Inter({
   display: "swap",
 });
 
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
 const serif = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
   variable: "--font-serif",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "websight — apps as small philosophies",
+  title: "websight — 七つの小さな器",
   description:
-    "小さなアプリを通して、問いを実装するためのポートフォリオ。",
+    "問いをすくい、しばらく置いておくための、七つの小さなアプリ。",
 };
 
 export default function RootLayout({
@@ -33,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja" className={`${sans.variable} ${mono.variable} ${serif.variable}`}>
+    <html lang="ja" className={`${sans.variable} ${serif.variable}`}>
       <body className="bg-ink-950 text-bone-200 font-sans antialiased selection:bg-glow/30 selection:text-bone-100">
         {children}
       </body>

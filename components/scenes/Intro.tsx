@@ -17,10 +17,10 @@ export default function Intro() {
         range={6}
         duration={9}
         as="span"
-        className="absolute left-6 top-6 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.3em] text-bone-400 sm:left-10 sm:top-10"
+        className="absolute left-6 top-6 flex items-center gap-3 font-serif text-sm italic text-bone-300/90 sm:left-10 sm:top-10"
       >
-        <span className="size-1.5 rounded-full bg-glow shadow-[0_0_10px_rgba(158,252,255,0.7)]" />
-        websight / index
+        <span className="size-1.5 rounded-full bg-glow/80 shadow-[0_0_10px_rgba(174,223,228,0.6)]" />
+        websight ・ 索引
       </Float>
 
       <Float
@@ -28,9 +28,9 @@ export default function Intro() {
         duration={11}
         delay={0.4}
         as="span"
-        className="absolute right-6 top-6 font-mono text-[11px] uppercase tracking-[0.3em] text-bone-400 sm:right-10 sm:top-10"
+        className="absolute right-6 top-6 font-serif text-sm italic text-bone-300/80 sm:right-10 sm:top-10"
       >
-        seven small philosophies
+        七つの小さな器
       </Float>
 
       <div className="relative w-full max-w-6xl text-center">
@@ -38,7 +38,7 @@ export default function Intro() {
           <h1 className="font-serif text-[14vw] font-light leading-[0.9] tracking-tight text-bone-100 sm:text-[10vw] lg:text-[8.5rem]">
             <span className="block">
               <KineticText
-                text="問い、"
+                text="問いを、"
                 progress={progress}
                 from="top"
                 start={-0.7}
@@ -48,7 +48,7 @@ export default function Intro() {
             </span>
             <span className="block">
               <KineticText
-                text="ここに集める。"
+                text="しずくのように。"
                 progress={progress}
                 from="bottom"
                 start={-0.55}
@@ -64,9 +64,10 @@ export default function Intro() {
         <Float range={4} duration={7} delay={0.6}>
           <motion.p
             style={{ opacity: subOpacity, y: subY }}
-            className="mx-auto mt-12 max-w-md text-pretty font-mono text-[11px] uppercase leading-relaxed tracking-[0.25em] text-bone-300"
+            className="mx-auto mt-12 max-w-md text-pretty font-serif text-base italic leading-relaxed text-bone-300"
           >
-            scroll ↓ to pan ↔
+            すぐに答えを出さなくていい。<br />
+            ひとつずつ、ここに置いていく。
           </motion.p>
         </Float>
       </div>
@@ -76,9 +77,9 @@ export default function Intro() {
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
         <Float range={8} duration={2.4}>
-          <div className="flex flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-bone-400">
+          <div className="flex flex-col items-center gap-2 font-serif text-xs italic text-bone-400">
             <span>scroll</span>
-            <span className="block h-8 w-px bg-gradient-to-b from-glow/70 to-transparent" />
+            <span className="block h-10 w-px bg-gradient-to-b from-glow/60 to-transparent" />
           </div>
         </Float>
       </motion.div>

@@ -24,9 +24,9 @@ export default function Manifesto() {
         range={5}
         duration={11}
         as="span"
-        className="absolute left-6 top-6 font-mono text-[11px] uppercase tracking-[0.3em] text-bone-400 sm:left-16 sm:top-12"
+        className="absolute left-6 top-6 font-serif text-sm italic text-bone-300/80 sm:left-16 sm:top-12"
       >
-        // colophon · 0
+        ことば、ひとつ
       </Float>
 
       <Float range={10} duration={9}>
@@ -53,10 +53,10 @@ export default function Manifesto() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-ink-950 via-ink-950/80 to-transparent" />
         <motion.ul
           style={{ y: stackY }}
-          className="flex flex-col items-start gap-10 font-serif text-[44px] font-light leading-none text-bone-200 sm:items-end sm:text-[64px]"
+          className="flex flex-col items-start gap-10 font-serif text-[44px] font-light italic leading-none text-bone-200 sm:items-end sm:text-[64px]"
         >
           {[...apps, ...apps].map((a, i) => (
-            <li key={`${a.id}-${i}`} className="italic" style={{ color: a.accent }}>
+            <li key={`${a.id}-${i}`} style={{ color: a.accent }}>
               {a.subtitle}
             </li>
           ))}
@@ -68,9 +68,9 @@ export default function Manifesto() {
         duration={10}
         delay={0.5}
         as="span"
-        className="absolute bottom-8 right-6 font-mono text-[10px] uppercase tracking-[0.3em] text-bone-400 sm:bottom-10 sm:right-16"
+        className="absolute bottom-8 right-6 font-serif text-sm italic text-bone-400 sm:bottom-10 sm:right-16"
       >
-        07 works · ∞ next
+        七つの器、まだ続く
       </Float>
     </section>
   );

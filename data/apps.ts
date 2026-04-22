@@ -28,8 +28,8 @@ export const apps: App[] = [
     tags: ["taxonomy", "ai", "classify"],
     status: "wip",
     year: 2025,
-    accent: "#9efcff",
-    accentName: "azure",
+    accent: "#94a886",
+    accentName: "苔 / moss",
   },
   {
     id: "profile",
@@ -43,8 +43,8 @@ export const apps: App[] = [
     tags: ["profile", "ai", "library"],
     status: "live",
     year: 2025,
-    accent: "#a8ffa1",
-    accentName: "spring",
+    accent: "#a8c2a0",
+    accentName: "若葉 / fern",
   },
   {
     id: "prism",
@@ -58,8 +58,8 @@ export const apps: App[] = [
     tags: ["self", "diagnose", "report"],
     status: "live",
     year: 2025,
-    accent: "#ff9efc",
-    accentName: "magenta",
+    accent: "#e0a18a",
+    accentName: "珊瑚 / coral",
   },
   {
     id: "prism-mirror",
@@ -73,8 +73,8 @@ export const apps: App[] = [
     tags: ["self", "mirror", "alt"],
     status: "live",
     year: 2025,
-    accent: "#b59eff",
-    accentName: "violet",
+    accent: "#b8aac9",
+    accentName: "藤 / wisteria",
   },
   {
     id: "hanten",
@@ -88,8 +88,8 @@ export const apps: App[] = [
     tags: ["reframe", "emotion", "4-step"],
     status: "live",
     year: 2025,
-    accent: "#ffb09e",
-    accentName: "ember",
+    accent: "#d4a17a",
+    accentName: "粘土 / clay",
   },
   {
     id: "problemmach",
@@ -103,8 +103,8 @@ export const apps: App[] = [
     tags: ["dialogue", "ai", "mental"],
     status: "live",
     year: 2025,
-    accent: "#fde89e",
-    accentName: "amber",
+    accent: "#d8c089",
+    accentName: "蜂蜜 / honey",
   },
   {
     id: "watashi",
@@ -118,8 +118,8 @@ export const apps: App[] = [
     tags: ["identity", "experiment", "self"],
     status: "live",
     year: 2025,
-    accent: "#ff9eb6",
-    accentName: "rose",
+    accent: "#d4a8b0",
+    accentName: "暁 / dawn",
   },
 ];
 
