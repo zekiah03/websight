@@ -6,7 +6,6 @@ export default function Header() {
         <span className="text-shadow">──</span>
         <span>記録</span>
       </div>
-
       <div className="pointer-events-auto flex items-baseline gap-3 text-right">
         <span>websight</span>
         <span className="text-shadow">/</span>
