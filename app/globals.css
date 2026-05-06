@@ -4,15 +4,21 @@
 
 :root {
   color-scheme: dark;
+  --paper: #f4f1ea;
+  --void: #0a0a0a;
+  --mid: #1a1a1a;
 }
 
 html,
 body {
-  background: #05070a;
+  background: var(--void);
+  color: var(--paper);
 }
 
 html {
   font-feature-settings: "palt" 1;
+  cursor: crosshair;
+  overflow-x: hidden;
 }
 
 body {
@@ -20,27 +26,52 @@ body {
 }
 
 ::selection {
-  background: rgba(232, 230, 223, 0.2);
-  color: #e8e6df;
+  background: rgba(244, 241, 234, 0.2);
+  color: var(--paper);
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #05070a;
+  background: var(--void);
 }
 ::-webkit-scrollbar-thumb {
-  background: #0a0d11;
+  background: rgba(244, 241, 234, 0.08);
   border-radius: 999px;
+}
+
+/* Glyph SVG defaults — paper-colored strokes, no fill */
+.glyph * {
+  stroke: var(--paper);
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* KaTeX small fix for our card formulas */
+.katex-card .katex {
+  font-size: 0.95em;
+}
+
+/* KaTeX color override to use paper tone */
+.katex {
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glyph-breathe,
+  .glyph-pulse {
+    animation: none !important;
+  }
 }
 
 @layer utilities {
   .border-line {
-    border-color: rgba(232, 230, 223, 0.08);
+    border-color: rgba(244, 241, 234, 0.08);
   }
   .bg-line {
-    background-color: rgba(232, 230, 223, 0.08);
+    background-color: rgba(244, 241, 234, 0.08);
   }
 }
