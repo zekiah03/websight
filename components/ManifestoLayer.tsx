@@ -39,11 +39,11 @@ export default function ManifestoLayer() {
         </p>
       </div>
 
-      {/* corner spec marks */}
-      <div className="absolute top-1/2 left-6 -translate-y-1/2 font-en text-[9px] tracking-[0.35em] text-paper/30 uppercase rotate-180" style={{ writingMode: "vertical-rl" }}>
+      {/* corner spec marks (desktop only) */}
+      <div className="hidden md:block absolute top-1/2 left-6 -translate-y-1/2 font-en text-[9px] tracking-[0.35em] text-paper/30 uppercase rotate-180" style={{ writingMode: "vertical-rl" }}>
         five scales · diagnose / record / research / play / serve
       </div>
-      <div className="absolute top-1/2 right-6 -translate-y-1/2 font-en text-[9px] tracking-[0.35em] text-paper/30 uppercase" style={{ writingMode: "vertical-rl" }}>
+      <div className="hidden md:block absolute top-1/2 right-6 -translate-y-1/2 font-en text-[9px] tracking-[0.35em] text-paper/30 uppercase" style={{ writingMode: "vertical-rl" }}>
         a small research studio · est. 2025
       </div>
     </div>

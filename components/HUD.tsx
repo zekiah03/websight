@@ -54,29 +54,29 @@ export default function HUD() {
   return (
     <>
       {/* top-left brand */}
-      <div className="fixed top-6 left-6 sm:top-8 sm:left-10 z-40 font-en text-[10px] tracking-[0.25em] text-paper/40 uppercase pointer-events-none">
+      <div className="fixed top-5 left-5 sm:top-8 sm:left-10 z-40 font-en text-[9px] sm:text-[10px] tracking-[0.25em] text-paper/40 uppercase pointer-events-none">
         <div
-          className="font-serif italic font-medium not-italic-tight text-[14px] tracking-[0.02em] text-paper mb-1"
+          className="font-serif italic font-medium text-[13px] sm:text-[14px] tracking-[0.02em] text-paper mb-1"
           style={{ fontStyle: "italic" }}
         >
           ∞ {manifesto.brand}
         </div>
         <div>SCROLL · TO · DESCEND</div>
-        <div className="mt-1 text-paper/30">{manifesto.taglineJa}</div>
+        <div className="mt-1 text-paper/30 hidden sm:block">{manifesto.taglineJa}</div>
       </div>
 
       {/* top-right depth + category */}
-      <div className="fixed top-6 right-6 sm:top-8 sm:right-10 z-40 font-en text-[10px] tracking-[0.25em] text-paper/40 uppercase text-right pointer-events-none">
+      <div className="fixed top-5 right-5 sm:top-8 sm:right-10 z-40 font-en text-[9px] sm:text-[10px] tracking-[0.25em] text-paper/40 uppercase text-right pointer-events-none">
         <div className="text-paper/40">DEPTH</div>
-        <div className="text-paper text-[13px] mt-1 tabular-nums">
+        <div className="text-paper text-[12px] sm:text-[13px] mt-1 tabular-nums">
           <span ref={indexRef}>00</span>
           <span className="text-paper/30 mx-1">/</span>
           <span ref={enRef}>ORIGIN</span>
         </div>
-        <div className="mt-1 text-paper/50 tracking-[0.2em] not-italic">
+        <div className="mt-1 text-paper/50 tracking-[0.2em]">
           <span ref={jaRef}>起点</span>
         </div>
-        <div className="mt-3 text-paper/30 tabular-nums">
+        <div className="mt-3 text-paper/30 tabular-nums hidden sm:block">
           <span ref={scaleRef}>10⁰</span>
           <span className="mx-2">·</span>
           <span ref={depthRef}>0.00</span>%

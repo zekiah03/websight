@@ -30,7 +30,7 @@ export default function DepthIndicator() {
   return (
     <nav
       aria-label="depth"
-      className="fixed right-6 sm:right-10 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-5 font-en text-[10px] tracking-[0.2em] uppercase pointer-events-none"
+      className="fixed right-3 sm:right-10 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-4 sm:gap-5 font-en text-[10px] tracking-[0.2em] uppercase pointer-events-none"
     >
       {STEPS.map((s, i) => (
         <div

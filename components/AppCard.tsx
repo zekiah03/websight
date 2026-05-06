@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { App } from "@/data/apps";
 import { host } from "@/data/apps";
 import Katex from "./Katex";
@@ -16,11 +17,9 @@ const STATUS_LABEL: Record<App["status"], string> = {
 
 export default function AppCard({ app, n }: { app: App; n: string }) {
   return (
-    <a
-      href={app.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="card-anchor block w-[260px] sm:w-[280px] p-4 border border-paper/8 bg-black/30 backdrop-blur-[2px] transition-colors duration-300 hover:border-paper/30 hover:bg-black/50 cursor-crosshair"
+    <Link
+      href={`/apps/${app.id}`}
+      className="card-anchor block w-full sm:w-[240px] p-3 sm:p-3 transition-opacity duration-300 hover:opacity-100 opacity-90 cursor-crosshair"
     >
       {/* status row */}
       <div className="flex items-baseline justify-between text-[9px] tracking-[0.3em] font-en uppercase text-paper/40">
@@ -32,7 +31,7 @@ export default function AppCard({ app, n }: { app: App; n: string }) {
       </div>
 
       {/* title */}
-      <h3 className="mt-2 text-[16px] leading-tight text-paper font-light tracking-tight">
+      <h3 className="mt-2 text-[15px] sm:text-[16px] leading-tight text-paper font-light tracking-tight">
         {app.title}
       </h3>
 
@@ -55,7 +54,7 @@ export default function AppCard({ app, n }: { app: App; n: string }) {
       </p>
 
       {/* meta row */}
-      <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[9px] tracking-[0.18em] font-en uppercase text-paper/40">
+      <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[9px] tracking-[0.18em] font-en uppercase text-paper/40">
         {app.dimensions.map((d) => (
           <span key={d.label}>
             {d.label}
@@ -72,12 +71,12 @@ export default function AppCard({ app, n }: { app: App; n: string }) {
       </div>
 
       {/* host + arrow */}
-      <div className="mt-3 flex items-baseline justify-between text-[9px] tracking-[0.2em] font-en uppercase">
+      <div className="mt-2 flex items-baseline justify-between text-[9px] tracking-[0.2em] font-en uppercase">
         <span className="text-paper/50 normal-case tracking-normal">
           {host(app.url)}
         </span>
-        <span className="text-paper">↗</span>
+        <span className="text-paper/70">→</span>
       </div>
-    </a>
+    </Link>
   );
 }

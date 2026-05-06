@@ -8,10 +8,10 @@ import { bell } from "@/lib/math";
 type Props = {
   index: number;
   children: ReactNode;
-  size?: number;
+  size?: string;
 };
 
-export default function ZoomLayer({ index, children, size = 800 }: Props) {
+export default function ZoomLayer({ index, children, size = "65vmin" }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
